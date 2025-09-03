@@ -1,0 +1,15 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/featureflagdb
+    username: featureflag_user
+    password: featureflag_pass
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: true
+  flyway:
+    url: jdbc:postgresql://localhost:5432/featureflagdb
+    user: featureflag_user
+    password: featureflag_pass
+    baseline-on-migrate: true
+    connect-retries: 5
