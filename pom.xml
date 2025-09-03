@@ -67,7 +67,6 @@
 			<version>11.11.2</version>
 			<scope>runtime</scope>
 		</dependency>
-
         <!-- JWT (Json Web Token, autenticación) -->
         <dependency>
             <groupId>io.jsonwebtoken</groupId>
