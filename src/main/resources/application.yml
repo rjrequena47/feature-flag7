@@ -9,6 +9,13 @@ spring:
     show-sql: true
   jwt:
     secret: ClaveSeguraParaFeatureFlag7_API_HS512_ClaveSeguraParaFeatureFlag7_API
+  mvc:
+    pathmatch:
+      matching-strategy: ant-path-matcher
+    static-path-pattern: /static/**
+  web:
+    resources:
+      add-mappings: false
   flyway:
     url: jdbc:postgresql://localhost:5432/featureflagdb
     user: featureflag_user
