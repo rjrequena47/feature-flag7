@@ -60,7 +60,6 @@ public FeatureResponse createFeature(@Valid @RequestBody FeatureRequest request)
         });
     }
     
-    // Se elimina el try-catch para que el GlobalExceptionHandler maneje la excepción
     Feature saved = featureRepository.save(feature);
     return FeatureResponse.fromEntity(saved);
 }
