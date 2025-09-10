@@ -11,10 +11,13 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
+import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -71,11 +74,16 @@ public FeatureResponse createFeature(@Valid @RequestBody FeatureRequest request)
     @GetMapping
     @Operation(summary = "Listar todas las features", description = "Devuelve todas las funcionalidades registradas en el sistema")
     @ApiResponse(responseCode = "200", description = "Listado de features obtenido exitosamente")
-    public List<FeatureResponse> getAllFeatures() {
-        return featureRepository.findAll()
-                .stream()
-                .map(FeatureResponse::fromEntity)
-                .toList();
+    @ApiResponse(responseCode = "404", description = "Features No Encontrados")
+    public ResponseEntity<List<FeatureResponse>> getAllFeatures() {
+        Boolean empty = false;
+       try {
+           empty = featureRepository.findAll().isEmpty();
+           if (empty) throw new RuntimeException("Features No Encontrados");
+       }catch (Exception e) {
+           return ResponseEntity.notFound().build();
+       }
+       return ResponseEntity.ok(featureRepository.findAll().stream().map(FeatureResponse::fromEntity).toList());
     }
 
 
@@ -84,10 +92,19 @@ public FeatureResponse createFeature(@Valid @RequestBody FeatureRequest request)
     // ==============================
     @GetMapping("/{id}")
     @Operation(summary = "Extrae feature por ID", description = "Devuelve la funcionalidad registrada en el sistema de acuerdo a su ID")
-    @ApiResponse(responseCode = "200", description = "feature obtenido exitosamente")
-    public FeatureResponse getFeatureById(@PathVariable String id) {
-        Feature feature = featureRepository.getReferenceById(UUID.fromString(id));
-        return FeatureResponse.fromEntity(feature);
+    @ApiResponse(responseCode = "200", description = "Feature obtenido exitosamente")
+    @ApiResponse(responseCode = "404", description = "Feature No Encontrado")
+    public ResponseEntity<FeatureResponse> getFeatureById(@PathVariable String id) {
+        UUID uuid = null;
+        try{
+            uuid = UUID.fromString(id); //Asigna el UUID a una variable dentro del try-catch valida, si no se puede transformar lanza un error
+        }catch(IllegalArgumentException e) {
+            System.out.println("feature No Encontrado");
+            e.printStackTrace();
+            return ResponseEntity.notFound().build();
+        }
+        Feature feature = featureRepository.getReferenceById(uuid);
+        return ResponseEntity.ok(FeatureResponse.fromEntity(feature));
     }
 
 }
