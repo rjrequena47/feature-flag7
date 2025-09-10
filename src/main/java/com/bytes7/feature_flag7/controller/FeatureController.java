@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/features")
@@ -76,4 +77,17 @@ public FeatureResponse createFeature(@Valid @RequestBody FeatureRequest request)
                 .map(FeatureResponse::fromEntity)
                 .toList();
     }
+
+
+    // ==============================
+    // GET /api/features/{id}
+    // ==============================
+    @GetMapping("/{id}")
+    @Operation(summary = "Extrae feature por ID", description = "Devuelve la funcionalidad registrada en el sistema de acuerdo a su ID")
+    @ApiResponse(responseCode = "200", description = "feature obtenido exitosamente")
+    public FeatureResponse getFeatureById(@PathVariable String id) {
+        Feature feature = featureRepository.getReferenceById(UUID.fromString(id));
+        return FeatureResponse.fromEntity(feature);
+    }
+
 }
