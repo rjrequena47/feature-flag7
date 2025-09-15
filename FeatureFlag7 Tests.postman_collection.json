@@ -1,0 +1,408 @@
+{
+	"info": {
+		"_postman_id": "da606340-8f97-40e1-9685-35c508371a72",
+		"name": "FeatureFlag7 Tests",
+		"description": "Colección de requests para probar la API FeatureFlag7 con autenticación JWT",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "28382583"
+	},
+	"item": [
+		{
+			"name": "Register User",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"username\": \"rodri\",\n  \"email\": \"rodri@test.com\",\n  \"password\": \"123456\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/auth/register",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"auth",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login User",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"username\": \"rodri\",\n  \"password\": \"1234\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/auth/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Feature",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJyb2RyaSIsInJvbGUiOiJVU0VSIiwiaWF0IjoxNzU3OTAwODE0LCJleHAiOjE3NTc5MDQ0MTR9.lUYbk6DXAw9arUY_9tpd-lgnH2HmVw09K2yR96FOMhaYBlysbzQ9z64Pst1-6UYQN5_PwGk7hUa3RQvRPN7xUg",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{jwt_token}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"dark_mode\",\n  \"description\": \"Activar modo oscuro\",\n  \"enabledByDefault\": false\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/features",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"features"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Feature for Client",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJyb2RyaSIsInJvbGUiOiJVU0VSIiwiaWF0IjoxNzU3OTAwODE0LCJleHAiOjE3NTc5MDQ0MTR9.lUYbk6DXAw9arUY_9tpd-lgnH2HmVw09K2yR96FOMhaYBlysbzQ9z64Pst1-6UYQN5_PwGk7hUa3RQvRPN7xUg",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{jwt_token}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"environment\": \"DEV\",\n  \"clientId\": \"acme123\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/features/047548e6-4c34-4a89-b7b8-118effa422d5",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"features",
+						"047548e6-4c34-4a89-b7b8-118effa422d5"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Enable Feature for Environment",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJyb2RyaSIsInJvbGUiOiJVU0VSIiwiaWF0IjoxNzU3OTAwODE0LCJleHAiOjE3NTc5MDQ0MTR9.lUYbk6DXAw9arUY_9tpd-lgnH2HmVw09K2yR96FOMhaYBlysbzQ9z64Pst1-6UYQN5_PwGk7hUa3RQvRPN7xUg",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{jwt_token}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"environment\": \"DEV\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/features/047548e6-4c34-4a89-b7b8-118effa422d5/enable",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"features",
+						"047548e6-4c34-4a89-b7b8-118effa422d5",
+						"enable"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Check Feature",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJyb2RyaSIsInJvbGUiOiJVU0VSIiwiaWF0IjoxNzU3OTAwODE0LCJleHAiOjE3NTc5MDQ0MTR9.lUYbk6DXAw9arUY_9tpd-lgnH2HmVw09K2yR96FOMhaYBlysbzQ9z64Pst1-6UYQN5_PwGk7hUa3RQvRPN7xUg",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{jwt_token}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/features/check?feature=dark_mode&clientId=acme123&env=DEV",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"features",
+						"check"
+					],
+					"query": [
+						{
+							"key": "feature",
+							"value": "dark_mode"
+						},
+						{
+							"key": "clientId",
+							"value": "acme123"
+						},
+						{
+							"key": "env",
+							"value": "DEV"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Check Feature by Id",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJyb2RyaSIsInJvbGUiOiJVU0VSIiwiaWF0IjoxNzU3OTAwODE0LCJleHAiOjE3NTc5MDQ0MTR9.lUYbk6DXAw9arUY_9tpd-lgnH2HmVw09K2yR96FOMhaYBlysbzQ9z64Pst1-6UYQN5_PwGk7hUa3RQvRPN7xUg",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/features/047548e6-4c34-4a89-b7b8-118effa422d5",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"features",
+						"047548e6-4c34-4a89-b7b8-118effa422d5"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Check Feature by feature and clientId and enviroment",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJyb2RyaSIsInJvbGUiOiJVU0VSIiwiaWF0IjoxNzU3OTAwODE0LCJleHAiOjE3NTc5MDQ0MTR9.lUYbk6DXAw9arUY_9tpd-lgnH2HmVw09K2yR96FOMhaYBlysbzQ9z64Pst1-6UYQN5_PwGk7hUa3RQvRPN7xUg",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/features/check?feature=dark_mode&clientId=acme123&env=DEV",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"features",
+						"check"
+					],
+					"query": [
+						{
+							"key": "feature",
+							"value": "dark_mode"
+						},
+						{
+							"key": "clientId",
+							"value": "acme123"
+						},
+						{
+							"key": "env",
+							"value": "DEV"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Features",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJyb2RyaSIsInJvbGUiOiJVU0VSIiwiaWF0IjoxNzU3OTA0OTMyLCJleHAiOjE3NTc5MDg1MzJ9.PFjMsDtGcEismzTfBgdMBS5-_QLS-sUUQD75KYcTTMVHOVjYmSeM5SgLJPn3Wyhv74Eh277pIeSIZqIC7I18cA",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/features",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"features"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "jwt_token",
+			"value": ""
+		},
+		{
+			"key": "feature_id",
+			"value": ""
+		}
+	]
+}
