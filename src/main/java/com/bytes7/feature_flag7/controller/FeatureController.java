@@ -5,6 +5,7 @@ import com.bytes7.feature_flag7.model.Feature;
 import com.bytes7.feature_flag7.model.FeatureConfig;
 import com.bytes7.feature_flag7.repository.FeatureRepository;
 import com.bytes7.feature_flag7.service.FeatureConfigService;
+import com.bytes7.feature_flag7.service.FeatureService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -27,10 +28,12 @@ public class FeatureController {
 
     private final FeatureRepository featureRepository;
     private final FeatureConfigService featureConfigService;
+    private final FeatureService featureService;
 
-    public FeatureController(FeatureRepository featureRepository, FeatureConfigService featureConfigService) {
+    public FeatureController(FeatureRepository featureRepository, FeatureConfigService featureConfigService, FeatureService featureService) {
         this.featureRepository = featureRepository;
         this.featureConfigService = featureConfigService;
+        this.featureService = featureService;
     }
 
     // ==============================
@@ -69,22 +72,30 @@ public FeatureResponse createFeature(@Valid @RequestBody FeatureRequest request)
     return FeatureResponse.fromEntity(saved);
 }
 
-    // ==============================
-    // GET /api/features
-    // ==============================
+    // ===========================================
+    // GET /api/features (con filtros opcionales)
+    // ===========================================
     @GetMapping
-    @Operation(summary = "Listar todas las features", description = "Devuelve todas las funcionalidades registradas en el sistema")
-    @ApiResponse(responseCode = "200", description = "Listado de features obtenido exitosamente")
-    @ApiResponse(responseCode = "404", description = "Features No Encontrados")
-    public ResponseEntity<List<FeatureResponse>> getAllFeatures() {
-        Boolean empty = false;
-       try {
-           empty = featureRepository.findAll().isEmpty();
-           if (empty) throw new RuntimeException("Features No Encontrados");
-       }catch (Exception e) {
-           return ResponseEntity.notFound().build();
-       }
-       return ResponseEntity.ok(featureRepository.findAll().stream().map(FeatureResponse::fromEntity).toList());
+    @Operation(
+        summary = "Listar features",
+        description = """
+            Devuelve todas las funcionalidades registradas. 
+            Se pueden aplicar filtros opcionales:
+            - `enabled`: true/false → filtra por estado.
+            - `name`: cadena parcial → búsqueda por nombre.
+            Si no se envían parámetros, retorna todas.
+            """
+    )
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "200", description = "Listado de features obtenido exitosamente"),
+        @ApiResponse(responseCode = "400", description = "Parámetros de filtrado inválidos"),
+        @ApiResponse(responseCode = "401", description = "No autorizado, falta token JWT o es inválido"),
+        @ApiResponse(responseCode = "500", description = "Error interno del servidor")
+    })
+    public ResponseEntity<List<FeatureResponse>> getFeatures(
+            @RequestParam(required = false) Boolean enabled,
+            @RequestParam(required = false) String name) {
+        return ResponseEntity.ok(featureService.getFeatures(enabled, name));
     }
 
 

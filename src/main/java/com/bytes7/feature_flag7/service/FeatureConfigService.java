@@ -1,7 +1,5 @@
 package com.bytes7.feature_flag7.service;
 
-import com.bytes7.feature_flag7.backend.enums.Environment;
-import com.bytes7.feature_flag7.dto.FeatureConfigRequest;
 import com.bytes7.feature_flag7.dto.FeatureConfigResponse;
 import com.bytes7.feature_flag7.dto.FeatureToggleRequest;
 import com.bytes7.feature_flag7.model.Feature;
