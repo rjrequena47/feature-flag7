@@ -1,10 +1,10 @@
 {
 	"info": {
-		"_postman_id": "5edc891e-96c0-4ad2-a365-ecf998cf652a",
+		"_postman_id": "385d084d-b62e-4713-85ce-34a45423324e",
 		"name": "FeatureFlag7 - API (Tests)",
 		"description": "Pruebas completas (Auth, Features, Gestión, Check, Filtros y Errores) para la API de FeatureFlag7.\n\nIncluye casos exitosos y de error para una cobertura completa.",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "45943072"
+		"_exporter_id": "28382583"
 	},
 	"item": [
 		{
@@ -220,6 +220,16 @@
 				{
 					"name": "Create Feature - POST /api/features (OK)",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJyb2RyaSIsInJvbGUiOiJVU0VSIiwiaWF0IjoxNzU4MDg2Mjg2LCJleHAiOjE3NTgwODk4ODZ9.BsvuyrrAaJKZPBQNROU1-GLPRxnIZKoNGryrW3WTfOYE25sVPO5zGomOoZirVHeSfwYH1X0KNj9OLoEfevX-pA",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [
 							{
@@ -441,6 +451,16 @@
 				{
 					"name": "List All Features - GET /api/features",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJyb2RyaSIsInJvbGUiOiJVU0VSIiwiaWF0IjoxNzU4MDkyOTA5LCJleHAiOjE3NTgwOTY1MDl9.GMBye4s9zgnQaKzHCovlrCkhh0kdJ0-gl7HzmEVd7XQ5RsscRmQfkCRh5efOaZZZxlo-sgZnCHsNh_0uf2_hqA",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [
 							{
@@ -497,7 +517,17 @@
 				{
 					"name": "Get Feature by ID - GET /api/features/{id} (OK)",
 					"request": {
-						"method": "POST",
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJyb2RyaSIsInJvbGUiOiJVU0VSIiwiaWF0IjoxNzU4MDkyOTA5LCJleHAiOjE3NTgwOTY1MDl9.GMBye4s9zgnQaKzHCovlrCkhh0kdJ0-gl7HzmEVd7XQ5RsscRmQfkCRh5efOaZZZxlo-sgZnCHsNh_0uf2_hqA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
 						"header": [
 							{
 								"key": "Authorization",
@@ -505,7 +535,7 @@
 							}
 						],
 						"url": {
-							"raw": "http://localhost:8080/api/features/{{featureId}}}",
+							"raw": "http://localhost:8080/api/features/91972f1c-70a1-462c-8aa7-3fb524f07149",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -514,7 +544,7 @@
 							"path": [
 								"api",
 								"features",
-								"{{featureId}}}"
+								"91972f1c-70a1-462c-8aa7-3fb524f07149"
 							]
 						}
 					},
@@ -591,6 +621,16 @@
 				{
 					"name": "Enable Feature - POST /api/features/{id}/enable",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJyb2RyaSIsInJvbGUiOiJVU0VSIiwiaWF0IjoxNzU4MDkyOTA5LCJleHAiOjE3NTgwOTY1MDl9.GMBye4s9zgnQaKzHCovlrCkhh0kdJ0-gl7HzmEVd7XQ5RsscRmQfkCRh5efOaZZZxlo-sgZnCHsNh_0uf2_hqA",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [
 							{
@@ -604,10 +644,10 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{ \"environment\": \"PROD\", \"clientId\": \"acme123\" }"
+							"raw": "{ \"environment\": \"STAGING\", \"clientId\": \"acme123\" }"
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/features/{{featureId}}}/enable",
+							"raw": "http://localhost:8080/api/features/91972f1c-70a1-462c-8aa7-3fb524f07149/enable",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -616,7 +656,7 @@
 							"path": [
 								"api",
 								"features",
-								"{{featureId}}}",
+								"91972f1c-70a1-462c-8aa7-3fb524f07149",
 								"enable"
 							]
 						}
@@ -707,6 +747,16 @@
 				{
 					"name": "Disable Feature - POST /api/features/{id}/disable",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJyb2RyaSIsInJvbGUiOiJVU0VSIiwiaWF0IjoxNzU4MDkyOTA5LCJleHAiOjE3NTgwOTY1MDl9.GMBye4s9zgnQaKzHCovlrCkhh0kdJ0-gl7HzmEVd7XQ5RsscRmQfkCRh5efOaZZZxlo-sgZnCHsNh_0uf2_hqA",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [
 							{
@@ -720,10 +770,10 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{ \"environment\": \"PROD\", \"clientId\": \"acme123\" }"
+							"raw": "{ \"environment\": \"STAGING\", \"clientId\": \"acme123\" }"
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/features/{{featureId}}}/disable",
+							"raw": "http://localhost:8080/api/features/91972f1c-70a1-462c-8aa7-3fb524f07149/disable",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -732,7 +782,7 @@
 							"path": [
 								"api",
 								"features",
-								"{{featureId}}}",
+								"91972f1c-70a1-462c-8aa7-3fb524f07149",
 								"disable"
 							]
 						}
@@ -782,7 +832,20 @@
 				},
 				{
 					"name": "Check Feature - GET /api/features/check",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJyb2RyaSIsInJvbGUiOiJVU0VSIiwiaWF0IjoxNzU4MDkyOTA5LCJleHAiOjE3NTgwOTY1MDl9.GMBye4s9zgnQaKzHCovlrCkhh0kdJ0-gl7HzmEVd7XQ5RsscRmQfkCRh5efOaZZZxlo-sgZnCHsNh_0uf2_hqA",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [
 							{
@@ -790,8 +853,17 @@
 								"value": "Bearer {{token}}"
 							}
 						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": "http://localhost:8080/api/features/check?feature=dark_mode&clientId=acme123&env=DEV",
+							"raw": "http://localhost:8080/api/features/check?feature=dark_mode&clientId=acme123&env=STAGING",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -813,7 +885,7 @@
 								},
 								{
 									"key": "env",
-									"value": "DEV"
+									"value": "STAGING"
 								}
 							]
 						}
@@ -919,6 +991,16 @@
 				{
 					"name": "Filter by enabled - GET /api/features?enabled=true",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJyb2RyaSIsInJvbGUiOiJVU0VSIiwiaWF0IjoxNzU4MDkyOTA5LCJleHAiOjE3NTgwOTY1MDl9.GMBye4s9zgnQaKzHCovlrCkhh0kdJ0-gl7HzmEVd7XQ5RsscRmQfkCRh5efOaZZZxlo-sgZnCHsNh_0uf2_hqA",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [
 							{
@@ -987,6 +1069,16 @@
 				{
 					"name": "Filter by name - GET /api/features?name=dark_mode",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJyb2RyaSIsInJvbGUiOiJVU0VSIiwiaWF0IjoxNzU4MDkyOTA5LCJleHAiOjE3NTgwOTY1MDl9.GMBye4s9zgnQaKzHCovlrCkhh0kdJ0-gl7HzmEVd7XQ5RsscRmQfkCRh5efOaZZZxlo-sgZnCHsNh_0uf2_hqA",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [
 							{
@@ -1098,9 +1190,6 @@
 						{
 							"name": "401 Unauthorized - no token",
 							"originalRequest": {
-								"auth": {
-									"type": "noauth"
-								},
 								"method": "GET",
 								"header": [
 									{
@@ -1112,10 +1201,6 @@
 										"value": "application/json"
 									}
 								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n  \"name\": \"dark_mode\",\n  \"description\": \"Duplicado\",\n  \"enabledByDefault\": false\n}"
-								},
 								"url": {
 									"raw": "http://localhost:8080/api/features",
 									"protocol": "http",

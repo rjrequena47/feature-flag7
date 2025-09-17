@@ -4,6 +4,7 @@ import com.bytes7.feature_flag7.dto.*;
 import com.bytes7.feature_flag7.model.Feature;
 import com.bytes7.feature_flag7.model.FeatureConfig;
 import com.bytes7.feature_flag7.repository.FeatureRepository;
+import com.bytes7.feature_flag7.service.FeatureConfigService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -25,9 +26,11 @@ import java.util.UUID;
 public class FeatureController {
 
     private final FeatureRepository featureRepository;
+    private final FeatureConfigService featureConfigService;
 
-    public FeatureController(FeatureRepository featureRepository) {
+    public FeatureController(FeatureRepository featureRepository, FeatureConfigService featureConfigService) {
         this.featureRepository = featureRepository;
+        this.featureConfigService = featureConfigService;
     }
 
     // ==============================
@@ -103,6 +106,40 @@ public FeatureResponse createFeature(@Valid @RequestBody FeatureRequest request)
         }
         Feature feature = featureRepository.getReferenceById(uuid);
         return ResponseEntity.ok(FeatureResponse.fromEntity(feature));
+    }
+
+    // ==============================
+    // POST /api/features/{id}/enable
+    // POST /api/features/{id}/disable
+    // ==============================
+    @PostMapping("/{id}/enable")
+    @Operation(summary = "Habilitar feature", description = "Habilita una feature para un cliente o entorno específico")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Feature habilitada exitosamente"),
+            @ApiResponse(responseCode = "400", description = "Solicitud inválida", content = @Content(schema = @Schema(implementation = ErrorResponse.class))),
+            @ApiResponse(responseCode = "404", description = "Feature no encontrada", content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
+    })
+    public ResponseEntity<FeatureConfigResponse> enableFeature(
+            @PathVariable String id,
+            @Valid @RequestBody FeatureToggleRequest request) {
+
+        UUID uuid = UUID.fromString(id);
+        return ResponseEntity.ok(featureConfigService.enableFeature(uuid, request));
+    }
+
+    @PostMapping("/{id}/disable")
+    @Operation(summary = "Deshabilitar feature", description = "Deshabilita una feature para un cliente o entorno específico")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Feature deshabilitada exitosamente"),
+            @ApiResponse(responseCode = "400", description = "Solicitud inválida", content = @Content(schema = @Schema(implementation = ErrorResponse.class))),
+            @ApiResponse(responseCode = "404", description = "Feature no encontrada", content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
+    })
+    public ResponseEntity<FeatureConfigResponse> disableFeature(
+            @PathVariable String id,
+            @Valid @RequestBody FeatureToggleRequest request) {
+
+        UUID uuid = UUID.fromString(id);
+        return ResponseEntity.ok(featureConfigService.disableFeature(uuid, request));
     }
 
 }
